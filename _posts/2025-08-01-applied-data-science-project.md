@@ -135,52 +135,21 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eg
 
 ## AI Ethics
 1. Privacy
-Issue:
-The dataset includes customer demographics such as skin tone, eye color, and hair color. While these features are useful for personalization, they are also sensitive and potentially identifiable.
+The dataset includes customer demographics such as skin tone, eye color, and hair color. While these features are useful for personalization, they are also sensitive and potentially identifiable. Data must be collected and processed under anonymized and stripped of personally identifiable information (PII).Avoid storing or sharing raw data that includes user IDs or timestamps unless necessary and secure. Comply with data protection regulations such as GDPR or PDPA (Singapore), especially when handling user-generated content.
 
-Mitigation:
-
-Ensure that all data used is anonymized and stripped of personally identifiable information (PII).
-Avoid storing or sharing raw data that includes user IDs or timestamps unless necessary and secure.
-Comply with data protection regulations such as GDPR or PDPA (Singapore), especially when handling user-generated content.
 2. Fairness
-Issue:
-Using demographic features to predict ratings may unintentionally reinforce biases. For example, if certain skin tones are associated with lower ratings due to historical bias in product formulation or marketing, the model may perpetuate this unfairness.
+Using demographic features to predict ratings may unintentionally reinforce biases. For example, if certain skin tones are associated with lower ratings due to historical bias in product formulation or marketing, the model may perpetuate this unfairness.  skin tone values were grouped into broader categories: Light, Medium, Tan, and Dark—through binning. This approach reduces granularity that could lead to biased predictions or racial profiling, while still preserving meaningful variation for modeling. The goal is to ensure that demographic features are used to enhance inclusivity, not to reinforce stereotypes or discrimination.
 
-Mitigation:
-
-Conduct bias audits to ensure that predictions do not disproportionately disadvantage any demographic group.
-Consider fairness-aware modeling techniques, such as reweighting or adversarial debiasing.
-Use demographic features to enhance inclusivity, not to exclude or stereotype.
 3. Accuracy
-Issue:
-The best-performing model (XGBoost) achieved an R² of only 0.0704, indicating limited predictive power. Relying on such models for business decisions could lead to inaccurate conclusions.
+The best-performing model (XGBoost) achieved an R² of only 0.0704, indicating limited predictive power. Relying on such models for business decisions could lead to inaccurate conclusions.Use predictions as supporting insights, not definitive judgments. Continuously monitor and retrain models with updated data to improve accuracy.
 
-Mitigation:
-
-Clearly communicate model limitations to stakeholders.
-Use predictions as supporting insights, not definitive judgments.
-Continuously monitor and retrain models with updated data to improve accuracy.
 4. Accountability
-Issue:
-Decisions based on model outputs—such as flagging products for review—must be traceable and justifiable.
+Decisions based on model outputs such as flagging products for review must be traceable and justifiable.Maintain audit trails of model development, training data, and decision logic.
+Ensure that human oversight is present in all critical decision-making processes. Document model assumptions, limitations, and evaluation metrics.
 
-Mitigation:
-
-Maintain audit trails of model development, training data, and decision logic.
-Ensure that human oversight is present in all critical decision-making processes.
-Document model assumptions, limitations, and evaluation metrics.
 5. Transparency
-Issue:
-Users and stakeholders may not understand how predictions are made, especially with complex models like XGBoost.
-
-Mitigation:
-
-Use interpretable models or tools like SHAP (SHapley Additive exPlanations) to explain feature contributions.
 Provide clear documentation and visualizations of model behavior.
-Engage stakeholders in understanding how AI supports—not replaces—human judgment.
-Conclusion
-Ethical AI practices are essential to ensure that data-driven decisions are responsible, inclusive, and trustworthy. By proactively addressing privacy, fairness, accuracy, accountability, and transparency, this project can deliver meaningful insights while respecting the rights and dignity of all users.
+
 
 ## Source Codes and Datasets
 Upload your model files and dataset into a GitHub repo and add the link here. 

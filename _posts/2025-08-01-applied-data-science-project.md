@@ -83,7 +83,8 @@ To predict customer ratings for Sephora products using structured product featur
 2. XGBoost Regression
 3. Random Forest Regression
 
-1. Linear Regression (Baseline Model)
+
+**1. Linear Regression (Baseline Model)**
 Purpose: Establish a baseline for model performance using a simple linear approach.
 
 Method: Ordinary Least Squares Regression
@@ -94,7 +95,7 @@ R-squared (R²): 0.005
 Interpretation:
 The model explains less than 1% of the variance in ratings, indicating that linear relationships alone are insufficient for capturing the complexity of customer rating behavior.
 
-2. XGBoost Regression
+**2. XGBoost Regression**
 Purpose: Leverage gradient boosting to model complex, non-linear relationships.
 
 Hyperparameter Tuning via GridSearchCV:
@@ -106,7 +107,7 @@ R-squared (R²): 0.0704
 Interpretation:
 XGBoost outperformed the baseline, capturing more variance and reducing error. The model benefits from boosting and handles feature interactions well, making it suitable for this task.
 
-3. Random Forest Regression
+**3. Random Forest Regression**
 Purpose: Use ensemble learning to reduce overfitting and improve generalization.
 
 Hyperparameter Tuning via GridSearchCV:

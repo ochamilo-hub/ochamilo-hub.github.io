@@ -39,7 +39,9 @@ A comprehensive data cleaning and preparation process was conducted to ensure th
 Using Pandas and NumPy, the following steps were performed:
 
   -Data Import & Consolidation: Multiple review files and product information datasets were imported and concatenated. An irrelevant column containing only line numbers was dropped.
+  
   -Structural Fixes: Column names and formats were standardized for consistency.
+  
   -Unnecessary Data Removal: Fields not contributing to the rating prediction task were removed.
 
 3. Data Filtering & Deduplication

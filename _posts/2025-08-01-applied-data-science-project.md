@@ -1,3 +1,4 @@
+<img width="783" height="84" alt="models comparison table" src="https://github.com/user-attachments/assets/4ef4cbfc-6f36-4b9f-b26a-8e87be45cd05" />
 ---
 layout: post
 author: Name
@@ -121,6 +122,9 @@ Random Forest also improved upon the baseline, though slightly less effective th
 
 
 ### Evaluation
+<img width="783" height="84" alt="models comparison table" src="https://github.com/user-attachments/assets/a5575652-28fa-4f47-bace-52a4acebdea5" />
+
+
 While all models show modest predictive power, XGBoost Regression demonstrated the best performance in terms of both error reduction and variance explanation. Further improvements may be achieved by:
 
 a. Incorporating additional features (e.g., review length, brand popularity)

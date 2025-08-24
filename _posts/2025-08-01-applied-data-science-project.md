@@ -123,7 +123,9 @@ Random Forest also improved upon the baseline, though slightly less effective th
 While all models show modest predictive power, XGBoost Regression demonstrated the best performance in terms of both error reduction and variance explanation. Further improvements may be achieved by:
 
 a. Incorporating additional features (e.g., review length, brand popularity)
+
 b. Using ensemble stacking
+
 c. Applying advanced NLP techniques to review text
 
 ## Recommendation and Analysis

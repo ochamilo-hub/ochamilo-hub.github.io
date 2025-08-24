@@ -77,10 +77,54 @@ Redundant feedback count columns were identified for removal to avoid multicolli
 After cleaning and transformation, 11 relevant columns were selected from an initial 27. These features capture both customer demographics and product attributes, forming the foundation for the rating prediction model.
 
 ### Modelling
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit. Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutrum. In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.
+To predict customer ratings for Sephora products using structured product features and customer demographics. Three regression models were evaluated using GridSearchCV for hyperparameter tuning:
+
+1. Linear Regression (Baseline)
+2. XGBoost Regression
+3. Random Forest Regression
+
+1. Linear Regression (Baseline Model)
+Purpose: Establish a baseline for model performance using a simple linear approach.
+
+Method: Ordinary Least Squares Regression
+Hyperparameter Tuning: Not applicable (no tunable parameters in basic linear regression)
+Performance Metrics:
+Mean Squared Error (MSE): 1.197
+R-squared (R²): 0.005
+Interpretation:
+The model explains less than 1% of the variance in ratings, indicating that linear relationships alone are insufficient for capturing the complexity of customer rating behavior.
+
+2. XGBoost Regression
+Purpose: Leverage gradient boosting to model complex, non-linear relationships.
+
+Hyperparameter Tuning via GridSearchCV:
+learning_rate: 0.1
+n_estimators: 200
+Performance Metrics:
+MSE: 1.1182
+R-squared (R²): 0.0704
+Interpretation:
+XGBoost outperformed the baseline, capturing more variance and reducing error. The model benefits from boosting and handles feature interactions well, making it suitable for this task.
+
+3. Random Forest Regression
+Purpose: Use ensemble learning to reduce overfitting and improve generalization.
+
+Hyperparameter Tuning via GridSearchCV:
+max_depth: 10
+n_estimators: 200
+Performance Metrics:
+MSE: 1.13
+R-squared (R²): 0.06
+Interpretation:
+Random Forest also improved upon the baseline, though slightly less effective than XGBoost. It provides robustness and interpretability, especially useful for understanding feature importance.
+
 
 ### Evaluation
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit. Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutrum. In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.
+While all models show modest predictive power, XGBoost Regression demonstrated the best performance in terms of both error reduction and variance explanation. Further improvements may be achieved by:
+
+a. Incorporating additional features (e.g., review length, brand popularity)
+b. Using ensemble stacking
+c. Applying advanced NLP techniques to review text
 
 ## Recommendation and Analysis
 Explain the analysis and recommendations

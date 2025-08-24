@@ -41,30 +41,37 @@ Using Pandas and NumPy, the following steps were performed:
 Data Import & Consolidation: Multiple review files and product information datasets were imported and concatenated. An irrelevant column containing only line numbers was dropped.
 Structural Fixes: Column names and formats were standardized for consistency.
 Unnecessary Data Removal: Fields not contributing to the rating prediction task were removed.
+
 3. Data Filtering & Deduplication
 Temporal Filtering: Only reviews from 2021 and 2022 were retained to ensure consistency and relevance. Data from 2023 was excluded due to incomplete annual coverage.
 Duplicate Removal: 523 duplicate rows were identified and removed based on a combination of author ID, timestamp, review text, and product ID. This accounted for less than 0.1% of the dataset.
-4. Handling Missing Values
+
+5. Handling Missing Values
 Demographic Fields: Missing values (<5%) were imputed using the most frequent values from the full 16-year dataset.
 Helpfulness Score: With ~50% missing values, this field was imputed using the mean.
 Dropped Fields:
 Review Title: Not essential for rating prediction.
 Tertiary Category: Replaced by Secondary Category or Product Name.
 Size, value_price_usd, sale_price_usd, child_min_price, child_max_price, variation_value, and variation_type: Dropped due to redundancy or irrelevance.
-5. Standardization & Grouping
+
+7. Standardization & Grouping
 Categorical Standardization: Fields like Eye Color were cleaned by merging semantically identical values (e.g., "Gray" and "grey").
 Skin Tone Grouping: Consolidated into four categories — Light, Medium, Tan, and Dark — to reduce sparsity and improve model performance.
-6. Sentiment Score Integration
+
+9. Sentiment Score Integration
 A sentiment score was derived from the review text to quantify emotional tone. This feature helps the model interpret customer feedback beyond structured fields, with positive sentiment often correlating with higher ratings.
-7. Outlier Treatment
+
+11. Outlier Treatment
 Price (USD): Outliers (e.g., $1900) were addressed using log transformation to reduce skew while preserving distribution shape.
 Feedback Counts: Extreme values were managed using capping techniques to maintain model stability.
-8. Correlation Analysis
+
+13. Correlation Analysis
 A correlation matrix was generated post-cleaning:
 is_recommended showed the strongest correlation with rating.
 love_count and price_usd had weak correlations.
 Redundant feedback count columns were identified for removal to avoid multicollinearity.
-9. Encoding & Feature Selection
+
+15. Encoding & Feature Selection
 After cleaning and transformation, 11 relevant columns were selected from an initial 27. These features capture both customer demographics and product attributes, forming the foundation for the rating prediction model.
 
 ### Modelling

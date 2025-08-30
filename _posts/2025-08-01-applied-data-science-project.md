@@ -117,7 +117,7 @@ Redundant feedback count columns were identified for removal to avoid multicolli
 <img width="566" height="272" alt="image" src="https://github.com/user-attachments/assets/f7e8414c-1936-4267-9df8-0ce49b65f78b" />
 
 
-10. Encoding & Feature Selection
+9. Encoding & Feature Selection
 After cleaning and transformation, 11 relevant columns were selected from an initial 27. These features capture both customer demographics and product attributes, forming the foundation for the rating prediction model.
 
 Product Features: rating, loves_count, price_usd, and sentiment_score,
@@ -126,6 +126,8 @@ Interaction/Review Features: is_recommended, total_neg_feedback_count, and to
 
 <img width="1792" height="396" alt="image" src="https://github.com/user-attachments/assets/eed767cc-1cd3-4b37-a34a-e94cd307681a" />
 
+**Cleaned dataset**
+<img width="586" height="316" alt="image" src="https://github.com/user-attachments/assets/0ca928a1-e593-43cc-898b-6ad860c763c2" />
 
 
 ### Modelling

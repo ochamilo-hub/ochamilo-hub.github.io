@@ -324,8 +324,8 @@ Provide clear documentation and visualizations of model behavior.
 
 
 ## Source Codes and Datasets
-Sharing in Drive because dataset files are too big to be uploaded in github, which the repository site has limited to 25mb only
-Goodle Drive https://drive.google.com/drive/folders/14RaCVic6QR4-hDZAZcCu9ZF6GHfmWGKp 
+The dataset files are too big to be uploaded in GitHub, which the repository site has limited to 25mb only.&nbsp;
+Please find my dataset @ Google Drive https://drive.google.com/drive/folders/14RaCVic6QR4-hDZAZcCu9ZF6GHfmWGKp&nbsp;&nbsp;
 
 ipynb files have been uploaded in github repository as below
 1. Preprocessing

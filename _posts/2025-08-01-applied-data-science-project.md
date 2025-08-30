@@ -34,6 +34,26 @@ The dataset used for this analysis is titled “Sephora Products and Skincare Re
 
 By understanding the factors that influence product ratings, Sephora can work with their brand partner to proactively address low-performing products to enhance overall customer experience.
 
+1. Data-Driven Product Flagging
+
+Identified the bottom 20 underperforming products based on predicted customer ratings across demographic factors (skin tone, skin type, eye color, hair color), price positioning, and ingredient profiles.
+
+2. Root-Cause Analysis
+
+Performed segmentation analysis to uncover which customer demographic groups oily skin type, tan and dark skin tones reported lower satisfaction.
+
+3. Analyzed pricing tiers and ingredient compositions that correlate with poor ratings.
+
+Highlighted formulation risks (harsh or less-preferred ingredients).
+
+Flagged misaligned price-value perception (products priced high but delivering lower customer satisfaction).
+
+3. Strategic Business Recommendations
+
+Suggested skin-type-specific variants, ingredient optimization, and customer testing strategies.
+
+Insights designed to help Sephora influence brand partners to reformulate or reposition products.
+
 ### Data Preparation
 
 1. Overview
@@ -147,7 +167,9 @@ Closely matching XGBoost’s performance.
 
 Here’s a comparison of the four models. As you can see, XGBoost delivered the best performance overall, with the lowest error and highest R-squared value. 
 
-<img width="1792" height="396" alt="image" src="https://github.com/user-attachments/assets/3371873d-06b7-4659-a65a-7996819a8fb3" />
+<img width="255" height="74" alt="image" src="https://github.com/user-attachments/assets/ba7c9616-c5f2-4165-9504-6a428adcb1d7" />
+
+<img width="284" height="278" alt="image" src="https://github.com/user-attachments/assets/f17ac9ad-693c-4b45-9746-c58dda733443" />
 
 
 ### Evaluation
@@ -180,7 +202,7 @@ Validation curves show how the model's performance changes with different hyperp
 
 •	For HistGradientBoosting Regression (max_leaf_nodes), the training error decreases and validation error decreases as the number of max_leaf_nodes increases. The validation error seems to continue decreasing with increasing max_leaf_nodes within the tested range
 
---- Summary of Findings ---
+### Summary of Findings 
 
 Based on the learning curves, all tree-based models (XGBoost, Random Forest, HistGradientBoosting) show potential for improvement with more training data, as indicated by the gap between training and validation error. Ridge Regression's performance seems less sensitive to the amount of training data.
 The validation curves provide insights into the impact of key hyperparameters. For XGBoost and HistGradientBoosting, increasing the number of estimators or max_leaf_nodes generally improves performance up to a point. For Random Forest, the number of estimators has less impact on validation error within the tested range. For Ridge, the alpha parameter's impact on performance is minimal within the tested range.
@@ -191,14 +213,19 @@ XGBoost with the lowest error and highest R-squared value and exhibited promisin
 
 <img width="612" height="338" alt="image" src="https://github.com/user-attachments/assets/4ff87bf8-eb01-4ff5-851d-fc120ba30bfc" />
 
-## Recommendation and Analysis
+## Feature Importance from Best XGBoost Model
+
+<img width="587" height="296" alt="image" src="https://github.com/user-attachments/assets/c13eb3ee-e55e-41d7-b0e0-a0197bd687d4" />
+
+Using the best XGBoost model, we analyzed feature importance. The variable 'is_recommended' was as the most influential predictor of customer ratings. This aligns with our earlier correlation analysis. The other variables were very weak in corelation  
+
 
 We used the beset model and predicted ratings for all products. We then identified the bottom 20 product based on average predicted ratings. These products are flagged for review, offering insights for product improvement 
 
 
 <img width="617" height="341" alt="image" src="https://github.com/user-attachments/assets/161e6fe3-e812-405b-8f00-54733a15ea80" />
 
-
+## Recomendation and Analysis
 
 Let’s see how different customer demographics interact with the bottom 20 products, we segmented by skin type, skin tone, eye color, and hair color. 
 

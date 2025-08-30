@@ -5,26 +5,33 @@ title: "Applied Data Science Project Documentation"
 categories: ITD214
 ---
 ## Project Background
+
+<img width="1200" height="544" alt="image" src="https://github.com/user-attachments/assets/a0de52c3-3829-4302-b320-7ecf552e8650" />
+
 Company Overview
+
 Sephora is a global leader in the beauty retail industry, offering thousands of products across cosmetics, skincare, hair care, and fragrances. Since launching its online store in 1999, Sephora has catered to a diverse customer base with varying preferences shaped by individual characteristics such as skin tone, skin type, hair color, and eye color.
 
 Project Motivation
+
 Imagine scrolling through hundreds of products on Sephora’s website—each promising different benefits and priced across a wide spectrum. For beauty and skincare shoppers, personalized insights are invaluable. Questions like “Which product suits my skin type?” or “Is this worth the price?” often arise. In such moments, user ratings and reviews become critical tools for informed decision-making.
 
 However, Sephora’s rating system is simplified to a 5-star scale, which doesn’t reveal the underlying factors that influence customer satisfaction. This sparked a curiosity: What drives a user to rate a product highly or poorly? Beyond performance, could brand, exclusivity, or popularity play a role?
 
 Main Business Goal
+
 The overarching goal of this project is to enhance customer satisfaction, uncover customer preferences, and inform product development decisions by leveraging data-driven insights.
 
 Business Objective
-To achieve this, the project aims to:
 
-Predict customer ratings based on product features and customer demographics (skin tone, eye color, skin type, hair color).
+To achieve this, the project aims to Predict customer ratings based on product features and customer demographics (skin tone, eye color, skin type, hair color).
 Identify the bottom 20 products with predicted poor ratings for further review or improvement.
 Dataset Overview
+
 The dataset used for this analysis is titled “Sephora Products and Skincare Reviews”, sourced from Kaggle. It contains information on over 8,000 products scraped from Sephora’s online store by Nady Inky using a Python scraper in March 2023. The dataset includes product attributes, customer reviews, and ratings, providing a rich foundation for predictive modeling and trend analysis.
 
 ## Work Accomplished
+
 By understanding the factors that influence product ratings, Sephora can work with their brand partner to:
 
 Offer more personalized product recommendations.
@@ -32,6 +39,7 @@ Improve product development and marketing strategies.
 Proactively address low-performing products to enhance overall customer experience.
 
 ### Data Preparation
+
 1. Overview
 A comprehensive data cleaning and preparation process was conducted to ensure the dataset was suitable for predictive modeling. The goal was to enhance data quality, reduce noise, and retain only relevant features for predicting customer ratings.
 
@@ -48,7 +56,7 @@ Using Pandas and NumPy, the following steps were performed:
 Temporal Filtering: Only reviews from 2021 and 2022 were retained to ensure consistency and relevance. Data from 2023 was excluded due to incomplete annual coverage.
 Duplicate Removal: 523 duplicate rows were identified and removed based on a combination of author ID, timestamp, review text, and product ID. This accounted for less than 0.1% of the dataset.
 
-5. Handling Missing Values
+4. Handling Missing Values
 Demographic Fields: Missing values (<5%) were imputed using the most frequent values from the full 16-year dataset.
 Helpfulness Score: With ~50% missing values, this field was imputed using the mean.
 Dropped Fields:
@@ -56,24 +64,24 @@ Review Title: Not essential for rating prediction.
 Tertiary Category: Replaced by Secondary Category or Product Name.
 Size, value_price_usd, sale_price_usd, child_min_price, child_max_price, variation_value, and variation_type: Dropped due to redundancy or irrelevance.
 
-7. Standardization & Grouping
+5. Standardization & Grouping
 Categorical Standardization: Fields like Eye Color were cleaned by merging semantically identical values (e.g., "Gray" and "grey").
 Skin Tone Grouping: Consolidated into four categories — Light, Medium, Tan, and Dark — to reduce sparsity and improve model performance.
 
-9. Sentiment Score Integration
+6. Sentiment Score Integration
 A sentiment score was derived from the review text to quantify emotional tone. This feature helps the model interpret customer feedback beyond structured fields, with positive sentiment often correlating with higher ratings.
 
-11. Outlier Treatment
+7. Outlier Treatment
 Price (USD): Outliers (e.g., $1900) were addressed using log transformation to reduce skew while preserving distribution shape.
 Feedback Counts: Extreme values were managed using capping techniques to maintain model stability.
 
-13. Correlation Analysis
+8. Correlation Analysis
 A correlation matrix was generated post-cleaning:
 is_recommended showed the strongest correlation with rating.
 love_count and price_usd had weak correlations.
 Redundant feedback count columns were identified for removal to avoid multicollinearity.
 
-15. Encoding & Feature Selection
+9. Encoding & Feature Selection
 After cleaning and transformation, 11 relevant columns were selected from an initial 27. These features capture both customer demographics and product attributes, forming the foundation for the rating prediction model.
 
 Product Features: rating, loves_count, price_usd, and sentiment_score,
@@ -92,49 +100,79 @@ Except Rick regression doesn’t require hypeparameter tunning, the 3 models und
 The dataset was then split into training and testing sets in an 80/20 ratio. 
 
 **1. Riedge Regression (Baseline Model)**
+
 Purpose: A baseline linear model. It’s simple, interpretable, and effective for datasets with multicollinearity, it has L2 regularization mechanism, helping reduce model complexity while retaining all features.
 
 Method: Ordinary Least Squares Regression
+
 Hyperparameter Tuning: Not applicable (no tunable parameters in basic linear regression)
+
 Performance Metrics:
+
 Mean Squared Error (MSE): 0.3559
+
 R-squared (R²): 0.7041
+
 Interpretation:
+
 Indicating decent performance but limited ability to capture complex patterns.
 
 **2. XGBoost Regression**
+
 Purpose: XGBoost Regression is a powerful gradient boosting ensemble algorithm known for its high accuracy and efficiency. It handles complex relationships well and is robust to overfitting with proper tuning, leverage gradient boosting to model complex, non-linear relationships, 
 
 Hyperparameter Tuning via GridSearchCV:
+
 learning_rate: 0.1
+
 n_estimators: 200
+
 Performance Metrics:
+
 MSE: 0.3273
+
 R-squared (R²): 0.7041
+
 Interpretation:
+
 XGBoost outperformed the baseline, capturing more variance and reducing error. The model benefits from boosting and handles feature interactions well, making it suitable for this task.
 
 **3. Random Forest Regression**
+
 Purpose: it can capture complex customer-product interactions, is robust against noisy review data, works seamlessly with mixed feature types, and provides interpretable insights that are valuable for product strategy.
 
 Hyperparameter Tuning via GridSearchCV:
+
 max_depth: 10
+
 n_estimators: 200
+
 Performance Metrics:
+
 MSE: 0.3317
+
 R-squared (R²): 0.7242
+
 Interpretation:
+
 Random Forest also improved upon the baseline, though slightly less effective than XGBoost. It provides robustness and interpretability, especially useful for understanding feature importance.
 
 **4. HistGradientBoosting Regression**
+
 Purpose: Newer boosting ensemble method optimized for speed and scalability. It’s particularly effective with large datasets and supports missing values natively.
 
 learning_rate: 0.1
+
 Max_leaf_nodes: 50
+
 Performance Metrics:
+
 MSE: 0.3289
+
 R-squared (R²): 0.7266
+
 Interpretation:
+
 Closely matching XGBoost’s performance.
 
 Here’s a comparison of the four models. As you can see, XGBoost delivered the best performance overall, with the lowest error and highest R-squared value. 
@@ -147,7 +185,9 @@ Here’s a comparison of the four models. As you can see, XGBoost delivered the 
 <img width="613" height="339" alt="image" src="https://github.com/user-attachments/assets/02e982db-b891-4679-8d78-a83f6bf8aa54" />
 
 --- Analysis of Learning Curves ---
+
 Learning curves show how the model's performance changes with increasing training data size.
+
 - For Ridge Regression, the training and validation error converge relatively quickly, indicating that adding more data might not significantly improve performance with this model.
 
 - For XGBoost Regression, the training error decreases and the validation error decreases as the training set size increases. The curves are still somewhat separated, suggesting that more data could potentially improve performance.
@@ -159,7 +199,9 @@ Learning curves show how the model's performance changes with increasing trainin
 <img width="625" height="349" alt="image" src="https://github.com/user-attachments/assets/8c869ff1-68e4-4e19-b126-f765da61a0d9" />
 
 --- Analysis of Validation Curves ---
+
 Validation curves show how the model's performance changes with different hyperparameter values.
+
 - For Ridge Regression (alpha), the validation error is relatively stable across a wide range of alpha values, with a slight increase at very high alpha values.
 
 - For XGBoost Regression (n_estimators), the training error decreases and validation error decreases as the number of estimators increases. The validation error seems to plateau after a certain number of estimators, suggesting diminishing returns from adding too many estimators.
@@ -168,8 +210,8 @@ Validation curves show how the model's performance changes with different hyperp
 
 - For HistGradientBoosting Regression (max_leaf_nodes), the training error decreases and validation error decreases as the number of max_leaf_nodes increases. The validation error seems to continue decreasing with increasing max_leaf_nodes within the tested range
 
-
 --- Summary of Findings ---
+
 Based on the learning curves, all tree-based models (XGBoost, Random Forest, HistGradientBoosting) show potential for improvement with more training data, as indicated by the gap between training and validation error. Ridge Regression's performance seems less sensitive to the amount of training data.
 The validation curves provide insights into the impact of key hyperparameters. For XGBoost and HistGradientBoosting, increasing the number of estimators or max_leaf_nodes generally improves performance up to a point. For Random Forest, the number of estimators has less impact on validation error within the tested range. For Ridge, the alpha parameter's impact on performance is minimal within the tested range.
 
@@ -180,6 +222,7 @@ XGBoost with the lowest error and highest R-squared value and exhibited promisin
 <img width="612" height="338" alt="image" src="https://github.com/user-attachments/assets/4ff87bf8-eb01-4ff5-851d-fc120ba30bfc" />
 
 ## Recommendation and Analysis
+
 We used the beset model and predicted ratings for all products. We then identified the bottom 20 product based on average predicted ratings. These products are flagged for review, offering insights for product improvement 
 
 
@@ -188,26 +231,32 @@ We used the beset model and predicted ratings for all products. We then identifi
 
 
 Let’s see how different customer demographics interact with the bottom 20 products, we segmented by skin type, skin tone, eye color, and hair color. 
-Starting with skin type, the distribution of predicted ratings across categories such as oily, dry, combination, and normal. oily skin shows a lower median and a narrow spread, this suggests that customers with oily skin consistently rate these products poorly. This could indicate a mismatch between product formulation and the needs of this skin type. 
+
+•	Starting with skin type, the distribution of predicted ratings across categories such as oily, dry, combination, and normal. oily skin shows a lower median and a narrow spread, this suggests that customers with oily skin consistently rate these products poorly. This could indicate a mismatch between product formulation and the needs of this skin type. 
 
 Next, we looked at skin tone groups—Dark, Light, Medium, and Tan. 
-Medium & Light skin tones has Wider spread, with some outliers as high as ~4.5.
+
+•	Medium & Light skin tones has Wider spread, with some outliers as high as ~4.5.
 this Suggests these Medium & Light have more polarized experiences, some users really dislike the products, but a minority rate them much higher. 
 
-Tan & Dark skin tones' Ratings are consistently low (~1.5–1.7). This shows uniform dissatisfaction, with little variation. Likely these products don’t cater well to deeper tones. one of the bottom product is Play, Mineral spf Stick should be look into to help to serve better for underserved skin tone group.
+•	Tan & Dark skin tones' Ratings are consistently low (~1.5–1.7). This shows uniform dissatisfaction, with little variation. Likely these products don’t cater well to deeper tones. one of the bottom product is Play, Mineral spf Stick should be look into to help to serve better for underserved skin tone group.
 
 Although eye color and hair color may not directly influence product performance, their box plots can still reveal interesting trends. 
 
-cBrown and Hazel eye colors appear to have lower median predicted ratings for the bottom 20 products.
+•	Brown and Hazel eye colors appear to have lower median predicted ratings for the bottom 20 products.
 
 •	Black hair: Consistently low (~1.5–1.7), little variation. Products underperform here.
 
 <img width="625" height="349" alt="image" src="https://github.com/user-attachments/assets/67911379-d01a-497b-89a3-28e51d46213e" />
 
 Let’s look at other product feature like Price and ingredients 
+
 •	Several products priced above $250–$300 show predicted ratings below 2.0, indicating poor perceived value. This is especially noticeable in categories like Wellness and High Tech Tools.
+
 •	Products in the Treatments category tend to have higher predicted ratings even at lower price points, suggesting strong value perception and customer satisfaction.
+
 •	Wellness, High Tech Tools, and Value & Gift Sets show clusters of low ratings, regardless of price.
+
 •	Masks and Moisturizers show mixed performance, indicating variability in formulation or customer fit. 
 
 I also completed an ingredient-level analysis of the bottom 20 products. the focus was on identifying commonly used ingredients that may be contributing to poor ratings among sensitive demographics.
@@ -215,9 +264,13 @@ I also completed an ingredient-level analysis of the bottom 20 products. the foc
 
 ## Recommendations:
 Since Sephora is a distributor and not a manufacturer, the recommendations should focus on influencing brand partners and curating product assortments 
+
 •	Sephora to share the Bottom 20 products insights with brand partners, work with them:
+
 •	Ingredient Optimization: Reduce or replace ingredients like phenoxyethanol or harsh exfoliants in products targeted at sensitive demographics. Like recommended by dermatologists' product La Roche-Posay
+
 •	Targeted Testing: Conduct user trials with affected groups to validate reformulations and ensure improved performance. As well wellness and high-tech products makers (toning tool), to provide demo or testing especial in roadshows 
+
 •	R&D Reformulation : encourage partner to works with dermatologists with reassess active ingredients for efficacy and compatibility with target demographics, re-introduce skin-type-specific variants example: New foundation shades, addressing underserved skin tones.
 
 

@@ -73,7 +73,7 @@ Using Pandas and NumPy, the following steps were performed:
 3. Data Filtering & Deduplication
 •	Temporal Filtering: Only reviews from 2021 and 2022 were retained to ensure consistency and relevance. Data from 2023 was excluded due to incomplete annual coverage.
 
-•	Duplicate Removal: 523 duplicate rows were identified and removed based on a combination of author ID, timestamp, review text, and product ID. This accounted for less than 0.1% of the dataset.
+•	Duplicate Removal: 160 duplicate rows were identified and removed based on a combination of author ID, timestamp, review text, and product ID. This accounted for less than 0.1% of the dataset.
 
 <img width="905" height="154" alt="image" src="https://github.com/user-attachments/assets/f7ba294f-2170-43de-b396-1e401152d910" />
 

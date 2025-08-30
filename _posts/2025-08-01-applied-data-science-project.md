@@ -48,7 +48,7 @@ Highlighted formulation risks (harsh or less-preferred ingredients).
 
 Flagged misaligned price-value perception (products priced high but delivering lower customer satisfaction).
 
-3. Strategic Business Recommendations
+4. Strategic Business Recommendations
 
 Suggested skin-type-specific variants, ingredient optimization, and customer testing strategies.
 
@@ -62,14 +62,11 @@ A comprehensive data cleaning and preparation process was conducted to ensure th
 2. Data Cleaning Highlights
 Using Pandas and NumPy, the following steps were performed:
 
+•	Data Import & Consolidation: Multiple review files and product information datasets were imported and concatenated. An irrelevant column containing only line numbers was dropped.
+•	Structural Fixes: Column names and formats were standardized for consistency. 
+•	Unnecessary Data Removal: Fields not contributing to the rating prediction task were removed.
+
 <img width="519" height="238" alt="image" src="https://github.com/user-attachments/assets/a18b01e9-0bcc-487e-8532-ced801e0a394" />
-
-    -Data Import & Consolidation: Multiple review files and product information datasets were imported and concatenated. An irrelevant column containing only line numbers was dropped.
-  
-    -Structural Fixes: Column names and formats were standardized for consistency.
-  
-    -Unnecessary Data Removal: Fields not contributing to the rating prediction task were removed.
-
 
 3. Data Filtering & Deduplication
 Temporal Filtering: Only reviews from 2021 and 2022 were retained to ensure consistency and relevance. Data from 2023 was excluded due to incomplete annual coverage.

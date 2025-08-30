@@ -1,3 +1,4 @@
+---
 layout: post
 author: Tan Chin Cheah
 title: "Applied Data Science Project Documentation"
@@ -79,9 +80,9 @@ Using Pandas and NumPy, the following steps were performed:
 4. Handling Missing Values
 •	Demographic Fields: Missing values (<5%) were imputed using the most frequent values from the full 16-year dataset.
 
-•	Helpfulness Score: With ~50% missing values, this field was imputed using the mean. (this field was dropped due to weak correlation in the end)
+•	Helpfulness Score: With ~50% missing values, this field was imputed using the mean. (This field was ultimately dropped from the analysis because it showed only weak correlation.d)
 
-•	Dropped Fields:
+Dropped Fields:
 
 •	Review Title: Not essential for rating prediction.
 

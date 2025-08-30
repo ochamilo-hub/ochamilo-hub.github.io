@@ -169,6 +169,8 @@ Here’s a comparison of the four models. As you can see, XGBoost delivered the 
 
 <img width="255" height="74" alt="image" src="https://github.com/user-attachments/assets/ba7c9616-c5f2-4165-9504-6a428adcb1d7" />
 
+
+
 <img width="284" height="278" alt="image" src="https://github.com/user-attachments/assets/f17ac9ad-693c-4b45-9746-c58dda733443" />
 
 
@@ -211,6 +213,7 @@ The validation curves provide insights into the impact of key hyperparameters. F
 
 XGBoost with the lowest error and highest R-squared value and exhibited promising characteristics in both learning and validation curve was selected as the final model for generating predicted ratings and identifying the bottom 20 products for review.
 
+We used the beset model and predicted ratings for all products. We then identified the bottom 20 product based on average predicted ratings. These products are flagged for review, offering insights for product improvement 
 <img width="612" height="338" alt="image" src="https://github.com/user-attachments/assets/4ff87bf8-eb01-4ff5-851d-fc120ba30bfc" />
 
 ## Feature Importance from Best XGBoost Model
@@ -219,15 +222,11 @@ XGBoost with the lowest error and highest R-squared value and exhibited promisin
 
 Using the best XGBoost model, we analyzed feature importance. The variable 'is_recommended' was as the most influential predictor of customer ratings. This aligns with our earlier correlation analysis. The other variables were very weak in corelation  
 
-
-We used the beset model and predicted ratings for all products. We then identified the bottom 20 product based on average predicted ratings. These products are flagged for review, offering insights for product improvement 
-
-
-<img width="617" height="341" alt="image" src="https://github.com/user-attachments/assets/161e6fe3-e812-405b-8f00-54733a15ea80" />
-
 ## Recomendation and Analysis
 
 Let’s see how different customer demographics interact with the bottom 20 products, we segmented by skin type, skin tone, eye color, and hair color. 
+
+<img width="617" height="341" alt="image" src="https://github.com/user-attachments/assets/161e6fe3-e812-405b-8f00-54733a15ea80" />
 
 •	Starting with skin type, the distribution of predicted ratings across categories such as oily, dry, combination, and normal. oily skin shows a lower median and a narrow spread, this suggests that customers with oily skin consistently rate these products poorly. This could indicate a mismatch between product formulation and the needs of this skin type. 
 

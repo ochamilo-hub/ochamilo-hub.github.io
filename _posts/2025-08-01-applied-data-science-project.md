@@ -25,7 +25,7 @@ Dataset Overview
 The dataset used for this analysis is titled “Sephora Products and Skincare Reviews”, sourced from Kaggle. It contains information on over 8,000 products scraped from Sephora’s online store by Nady Inky using a Python scraper in March 2023. The dataset includes product attributes, customer reviews, and ratings, providing a rich foundation for predictive modeling and trend analysis.
 
 ## Work Accomplished
-By understanding the factors that influence product ratings, Sephora can:
+By understanding the factors that influence product ratings, Sephora can work with their brand partner to:
 
 Offer more personalized product recommendations.
 Improve product development and marketing strategies.
@@ -79,22 +79,20 @@ After cleaning and transformation, 11 relevant columns were selected from an ini
 Product Features: rating, loves_count, price_usd, and sentiment_score,
 Customer Demographics: skin_tone_grouped, eye_color, skin_type, and hair_color.
 Interaction/Review Features: is_recommended, total_neg_feedback_count, and total_pos_feedback_count
-<img width="1798" height="132" alt="image" src="https://github.com/user-attachments/assets/10d7eff6-d955-42f8-b7fb-c2becd622629" />
+
+<img width="1792" height="396" alt="image" src="https://github.com/user-attachments/assets/eed767cc-1cd3-4b37-a34a-e94cd307681a" />
+
 
 
 ### Modelling
 For this project, 4 regression models were selected because the primary objective was to predict continuous numerical outcomes—customer ratings. Regression algorithms are designed to estimate values along a continuous scale, ideal for tasks like rating prediction
 
-•	Ridge Regression was chosen as a baseline linear model. It’s simple, interpretable, and effective for datasets with multicollinearity, it has L2 regularization mechanism, helping reduce model complexity while retaining all features.
-•	XGBoost Regression is a powerful gradient boosting ensemble algorithm known for its high accuracy and efficiency. It handles complex relationships well and is robust to overfitting with proper tuning.
-•	Random Forest Regression was selected for robustness to noise. It’s also useful for feature importance analysis. 
-•	HistGradientBoosting Regression is a newer boosting ensemble method optimized for speed and scalability. It’s particularly effective with large datasets and supports missing values natively.
-
-
 Except Rick regression doesn’t require hypeparameter tunning, the 3 models underwent using GridSearchCV to optimize performance. The evaluation was based on two key metrics: Mean Squared Error (MSE) and R-squared (R²). Lower MSE indicates better prediction accuracy, while higher R² reflects stronger explanatory power.
 
+The dataset was then split into training and testing sets in an 80/20 ratio. 
+
 **1. Riedge Regression (Baseline Model)**
-Purpose: Establish a baseline for model performance using a simple linear approach.
+Purpose: A baseline linear model. It’s simple, interpretable, and effective for datasets with multicollinearity, it has L2 regularization mechanism, helping reduce model complexity while retaining all features.
 
 Method: Ordinary Least Squares Regression
 Hyperparameter Tuning: Not applicable (no tunable parameters in basic linear regression)
@@ -105,7 +103,7 @@ Interpretation:
 Indicating decent performance but limited ability to capture complex patterns.
 
 **2. XGBoost Regression**
-Purpose: Leverage gradient boosting to model complex, non-linear relationships.
+Purpose: XGBoost Regression is a powerful gradient boosting ensemble algorithm known for its high accuracy and efficiency. It handles complex relationships well and is robust to overfitting with proper tuning, leverage gradient boosting to model complex, non-linear relationships, 
 
 Hyperparameter Tuning via GridSearchCV:
 learning_rate: 0.1
@@ -117,7 +115,7 @@ Interpretation:
 XGBoost outperformed the baseline, capturing more variance and reducing error. The model benefits from boosting and handles feature interactions well, making it suitable for this task.
 
 **3. Random Forest Regression**
-Purpose: Use ensemble learning to reduce overfitting and improve generalization.
+Purpose: it can capture complex customer-product interactions, is robust against noisy review data, works seamlessly with mixed feature types, and provides interpretable insights that are valuable for product strategy.
 
 Hyperparameter Tuning via GridSearchCV:
 max_depth: 10
@@ -129,7 +127,7 @@ Interpretation:
 Random Forest also improved upon the baseline, though slightly less effective than XGBoost. It provides robustness and interpretability, especially useful for understanding feature importance.
 
 **4. HistGradientBoosting Regression**
-Purpose: newer boosting ensemble method optimized for speed and scalabilit
+Purpose: Newer boosting ensemble method optimized for speed and scalability. It’s particularly effective with large datasets and supports missing values natively.
 
 learning_rate: 0.1
 Max_leaf_nodes: 50
@@ -139,25 +137,35 @@ R-squared (R²): 0.7266
 Interpretation:
 Closely matching XGBoost’s performance.
 
-Here’s a comparison of the three models. As you can see, XGBoost delivered the best performance overall, with the lowest error and highest R-squared value. 
+Here’s a comparison of the four models. As you can see, XGBoost delivered the best performance overall, with the lowest error and highest R-squared value. 
 
+<img width="1792" height="396" alt="image" src="https://github.com/user-attachments/assets/3371873d-06b7-4659-a65a-7996819a8fb3" />
 
 
 ### Evaluation
-<img width="783" height="84" alt="models comparison table" src="https://github.com/user-attachments/assets/a5575652-28fa-4f47-bace-52a4acebdea5" />
+
+<img width="613" height="339" alt="image" src="https://github.com/user-attachments/assets/02e982db-b891-4679-8d78-a83f6bf8aa54" />
 
 --- Analysis of Learning Curves ---
 Learning curves show how the model's performance changes with increasing training data size.
 - For Ridge Regression, the training and validation error converge relatively quickly, indicating that adding more data might not significantly improve performance with this model.
+
 - For XGBoost Regression, the training error decreases and the validation error decreases as the training set size increases. The curves are still somewhat separated, suggesting that more data could potentially improve performance.
+
 - For Random Forest Regression, similar to XGBoost, the training error decreases and validation error decreases with more data. There is a gap between the curves, indicating potential for improvement with more data.
+
 - For HistGradientBoosting Regression, the learning curves show a similar trend to XGBoost and Random Forest, with a gap between training and validation error, suggesting that more data might be beneficial.
+
+<img width="625" height="349" alt="image" src="https://github.com/user-attachments/assets/8c869ff1-68e4-4e19-b126-f765da61a0d9" />
 
 --- Analysis of Validation Curves ---
 Validation curves show how the model's performance changes with different hyperparameter values.
 - For Ridge Regression (alpha), the validation error is relatively stable across a wide range of alpha values, with a slight increase at very high alpha values.
+
 - For XGBoost Regression (n_estimators), the training error decreases and validation error decreases as the number of estimators increases. The validation error seems to plateau after a certain number of estimators, suggesting diminishing returns from adding too many estimators.
+
 - For Random Forest Regression (n_estimators), the training error decreases and validation error is relatively stable as the number of estimators increases. The validation error does not show significant improvement with more estimators beyond a certain point.
+
 - For HistGradientBoosting Regression (max_leaf_nodes), the training error decreases and validation error decreases as the number of max_leaf_nodes increases. The validation error seems to continue decreasing with increasing max_leaf_nodes within the tested range
 
 
@@ -169,10 +177,13 @@ The validation curves provide insights into the impact of key hyperparameters. F
 
 XGBoost with the lowest error and highest R-squared value and exhibited promising characteristics in both learning and validation curve was selected as the final model for generating predicted ratings and identifying the bottom 20 products for review.
 
+<img width="612" height="338" alt="image" src="https://github.com/user-attachments/assets/4ff87bf8-eb01-4ff5-851d-fc120ba30bfc" />
+
 ## Recommendation and Analysis
 We used the beset model and predicted ratings for all products. We then identified the bottom 20 product based on average predicted ratings. These products are flagged for review, offering insights for product improvement 
 
 
+<img width="617" height="341" alt="image" src="https://github.com/user-attachments/assets/161e6fe3-e812-405b-8f00-54733a15ea80" />
 
 
 
@@ -186,21 +197,23 @@ this Suggests these Medium & Light have more polarized experiences, some users r
 Tan & Dark skin tones' Ratings are consistently low (~1.5–1.7). This shows uniform dissatisfaction, with little variation. Likely these products don’t cater well to deeper tones. one of the bottom product is Play, Mineral spf Stick should be look into to help to serve better for underserved skin tone group.
 
 Although eye color and hair color may not directly influence product performance, their box plots can still reveal interesting trends. 
-•	Brown and Hazel eye colors appear to have lower median predicted ratings for the bottom 20 products.
+
+cBrown and Hazel eye colors appear to have lower median predicted ratings for the bottom 20 products.
+
 •	Black hair: Consistently low (~1.5–1.7), little variation. Products underperform here.
 
+<img width="625" height="349" alt="image" src="https://github.com/user-attachments/assets/67911379-d01a-497b-89a3-28e51d46213e" />
 
 Let’s look at other product feature like Price and ingredients 
-Several products priced above $250–$300 show predicted ratings below 2.0, indicating poor perceived value.
-This is especially noticeable in categories like Wellness and High Tech Tools.
-Products in the Treatments category tend to have higher predicted ratings even at lower price points, suggesting strong value perception and customer satisfaction.
-Wellness, High Tech Tools, and Value & Gift Sets show clusters of low ratings, regardless of price.
-Masks and Moisturizers show mixed performance, indicating variability in formulation or customer fit. 
+•	Several products priced above $250–$300 show predicted ratings below 2.0, indicating poor perceived value. This is especially noticeable in categories like Wellness and High Tech Tools.
+•	Products in the Treatments category tend to have higher predicted ratings even at lower price points, suggesting strong value perception and customer satisfaction.
+•	Wellness, High Tech Tools, and Value & Gift Sets show clusters of low ratings, regardless of price.
+•	Masks and Moisturizers show mixed performance, indicating variability in formulation or customer fit. 
 
 I also completed an ingredient-level analysis of the bottom 20 products. the focus was on identifying commonly used ingredients that may be contributing to poor ratings among sensitive demographics.
 
 
-Recommendations:
+## Recommendations:
 Since Sephora is a distributor and not a manufacturer, the recommendations should focus on influencing brand partners and curating product assortments 
 •	Sephora to share the Bottom 20 products insights with brand partners, work with them:
 •	Ingredient Optimization: Reduce or replace ingredients like phenoxyethanol or harsh exfoliants in products targeted at sensitive demographics. Like recommended by dermatologists' product La Roche-Posay

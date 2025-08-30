@@ -88,7 +88,7 @@ Dropped Fields:
 
 •	Tertiary Category: Replaced by Secondary Category or Product Name.
 
-•	Size, value_price_usd, sale_price_usd, child_min_price, child_max_price, variation_value, and variation_type: Dropped due to redundancy or irrelevance.
+•	Size, value_price_usd, sale_price_usd, child_min_price, child_max_price, sales_price, value_sales_price variation_value, limited_edition, new, online_online, out_of_stock, sephora_exclusive and hightlight : Dropped due to redundancy or irrelevance
 
 <img width="531" height="140" alt="image" src="https://github.com/user-attachments/assets/495317e6-9aa2-4c2b-b540-583c72a4935d" />
 

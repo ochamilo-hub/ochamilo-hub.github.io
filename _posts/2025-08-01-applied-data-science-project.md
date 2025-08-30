@@ -1,4 +1,3 @@
-<img width="586" height="316" alt="image" src="https://github.com/user-attachments/assets/dc9dd360-a3a5-409e-8f59-30dc5526de5c" />---
 layout: post
 author: Tan Chin Cheah
 title: "Applied Data Science Project Documentation"
@@ -71,38 +70,46 @@ Using Pandas and NumPy, the following steps were performed:
 <img width="519" height="238" alt="image" src="https://github.com/user-attachments/assets/a18b01e9-0bcc-487e-8532-ced801e0a394" />
 
 3. Data Filtering & Deduplication
-Temporal Filtering: Only reviews from 2021 and 2022 were retained to ensure consistency and relevance. Data from 2023 was excluded due to incomplete annual coverage.
-Duplicate Removal: 523 duplicate rows were identified and removed based on a combination of author ID, timestamp, review text, and product ID. This accounted for less than 0.1% of the dataset.
+•	Temporal Filtering: Only reviews from 2021 and 2022 were retained to ensure consistency and relevance. Data from 2023 was excluded due to incomplete annual coverage.
+
+•	Duplicate Removal: 523 duplicate rows were identified and removed based on a combination of author ID, timestamp, review text, and product ID. This accounted for less than 0.1% of the dataset.
 
 <img width="905" height="154" alt="image" src="https://github.com/user-attachments/assets/f7ba294f-2170-43de-b396-1e401152d910" />
 
 4. Handling Missing Values
-Demographic Fields: Missing values (<5%) were imputed using the most frequent values from the full 16-year dataset.
-Helpfulness Score: With ~50% missing values, this field was imputed using the mean.
-Dropped Fields:
-Review Title: Not essential for rating prediction.
-Tertiary Category: Replaced by Secondary Category or Product Name.
-Size, value_price_usd, sale_price_usd, child_min_price, child_max_price, variation_value, and variation_type: Dropped due to redundancy or irrelevance.
+•	Demographic Fields: Missing values (<5%) were imputed using the most frequent values from the full 16-year dataset.
+
+•	Helpfulness Score: With ~50% missing values, this field was imputed using the mean. (this field was dropped due to weak correlation in the end)
+
+•	Dropped Fields:
+
+•	Review Title: Not essential for rating prediction.
+
+•	Tertiary Category: Replaced by Secondary Category or Product Name.
+
+•	Size, value_price_usd, sale_price_usd, child_min_price, child_max_price, variation_value, and variation_type: Dropped due to redundancy or irrelevance.
 
 <img width="531" height="140" alt="image" src="https://github.com/user-attachments/assets/495317e6-9aa2-4c2b-b540-583c72a4935d" />
 
 5. Standardization & Grouping
-Categorical Standardization: Fields like Eye Color were cleaned by merging semantically identical values (e.g., "Gray" and "grey").
-Skin Tone Grouping: Consolidated into four categories — Light, Medium, Tan, and Dark — to reduce sparsity and improve model performance.
+•	Categorical Standardization: Fields like Eye Color were cleaned by merging semantically identical values (e.g., "Gray" and "grey").
+
+•	Skin Tone Grouping: Consolidated into four categories — Light, Medium, Tan, and Dark — to reduce sparsity and improve model performance.
 
 <img width="458" height="137" alt="image" src="https://github.com/user-attachments/assets/63f069a6-1ad0-4950-8f5d-27cf0f14671d" />
 
 <img width="503" height="129" alt="image" src="https://github.com/user-attachments/assets/a5c59b7b-a0b4-4bab-a764-d4b97dde23ae" />
 
 6. Sentiment Score Integration
-A sentiment score was derived from the review text to quantify emotional tone. This feature helps the model interpret customer feedback beyond structured fields, with positive sentiment often correlating with higher ratings.
+•	A sentiment score was derived from the review text to quantify emotional tone. This feature helps the model interpret customer feedback beyond structured fields, with positive sentiment often correlating with higher ratings.
 
 <img width="610" height="110" alt="image" src="https://github.com/user-attachments/assets/93b3daa6-9aab-483b-a7c1-961c6ef992d9" />
 
 
 7. Outlier Treatment
-Price (USD): Outliers (e.g., $1900) were addressed using log transformation to reduce skew while preserving distribution shape.
-Feedback Counts: Extreme values were managed using capping techniques to maintain model stability.
+•	Price (USD): Outliers (e.g., $1900) were addressed using log transformation to reduce skew while preserving distribution shape.
+
+•	Feedback Counts: Extreme values were managed using capping techniques to maintain model stability.
 
 <img width="550" height="281" alt="image" src="https://github.com/user-attachments/assets/fb1e4e3e-552d-4234-9470-4b1c4ad7f58b" />
 <img width="511" height="331" alt="image" src="https://github.com/user-attachments/assets/4b6a1758-4a2d-4797-9439-b1485039acf0" />
@@ -110,9 +117,11 @@ Feedback Counts: Extreme values were managed using capping techniques to maintai
 
 8. Correlation Analysis
 A correlation matrix was generated post-cleaning:
-is_recommended showed the strongest correlation with rating.
-love_count and price_usd had weak correlations.
-Redundant feedback count columns were identified for removal to avoid multicollinearity.
+•	is_recommended showed the strongest correlation with rating.
+
+•	love_count and price_usd had weak correlations.
+
+•	Redundant feedback count columns were identified for removal to avoid multicollinearity.
 
 <img width="566" height="272" alt="image" src="https://github.com/user-attachments/assets/f7e8414c-1936-4267-9df8-0ce49b65f78b" />
 
@@ -120,9 +129,11 @@ Redundant feedback count columns were identified for removal to avoid multicolli
 9. Encoding & Feature Selection
 After cleaning and transformation, 11 relevant columns were selected from an initial 27. These features capture both customer demographics and product attributes, forming the foundation for the rating prediction model.
 
-Product Features: rating, loves_count, price_usd, and sentiment_score,
-Customer Demographics: skin_tone_grouped, eye_color, skin_type, and hair_color.
-Interaction/Review Features: is_recommended, total_neg_feedback_count, and total_pos_feedback_count
+•	Product Features: rating, loves_count, price_usd, and sentiment_score,
+
+•	Customer Demographics: skin_tone_grouped, eye_color, skin_type, and hair_color.
+
+•	Interaction/Review Features: is_recommended, total_neg_feedback_count, and total_pos_feedback_count
 
 <img width="1792" height="396" alt="image" src="https://github.com/user-attachments/assets/eed767cc-1cd3-4b37-a34a-e94cd307681a" />
 

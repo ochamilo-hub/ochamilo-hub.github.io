@@ -312,4 +312,10 @@ Provide clear documentation and visualizations of model behavior.
 
 
 ## Source Codes and Datasets
-Upload your model files and dataset into a GitHub repo and add the link here. 
+sharing in Drive because dataset files are too big to be uploaded in github, which the repository site has limited to 25mb only
+Goodle Drive https://drive.google.com/drive/folders/14RaCVic6QR4-hDZAZcCu9ZF6GHfmWGKp 
+
+ipynb files uploaded in github repository as below
+1. preprocessing
+2. modeling and evaluation
+https://github.com/ochamilo-hub/ITD214-Data-science-project/upload

@@ -1,4 +1,4 @@
----
+<img width="586" height="316" alt="image" src="https://github.com/user-attachments/assets/dc9dd360-a3a5-409e-8f59-30dc5526de5c" />---
 layout: post
 author: Tan Chin Cheah
 title: "Applied Data Science Project Documentation"
@@ -126,7 +126,8 @@ Interaction/Review Features: is_recommended, total_neg_feedback_count, and to
 
 <img width="1792" height="396" alt="image" src="https://github.com/user-attachments/assets/eed767cc-1cd3-4b37-a34a-e94cd307681a" />
 
-**Cleaned dataset**
+**Dataset Quality Check**
+
 <img width="586" height="316" alt="image" src="https://github.com/user-attachments/assets/0ca928a1-e593-43cc-898b-6ad860c763c2" />
 
 

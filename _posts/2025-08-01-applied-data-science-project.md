@@ -1,6 +1,6 @@
 ---
 layout: post
-author: Name
+author: Tan Chin Cheah
 title: "Applied Data Science Project Documentation"
 categories: ITD214
 ---
@@ -76,24 +76,33 @@ Redundant feedback count columns were identified for removal to avoid multicolli
 15. Encoding & Feature Selection
 After cleaning and transformation, 11 relevant columns were selected from an initial 27. These features capture both customer demographics and product attributes, forming the foundation for the rating prediction model.
 
+Product Features: rating, loves_count, price_usd, and sentiment_score,
+Customer Demographics: skin_tone_grouped, eye_color, skin_type, and hair_color.
+Interaction/Review Features: is_recommended, total_neg_feedback_count, and total_pos_feedback_count
+<img width="1798" height="132" alt="image" src="https://github.com/user-attachments/assets/10d7eff6-d955-42f8-b7fb-c2becd622629" />
+
+
 ### Modelling
-To predict customer ratings for Sephora products using structured product features and customer demographics. Three regression models were evaluated using GridSearchCV for hyperparameter tuning:
+For this project, 4 regression models were selected because the primary objective was to predict continuous numerical outcomes—customer ratings. Regression algorithms are designed to estimate values along a continuous scale, ideal for tasks like rating prediction
 
-1. Linear Regression (Baseline)
-2. XGBoost Regression
-3. Random Forest Regression
+•	Ridge Regression was chosen as a baseline linear model. It’s simple, interpretable, and effective for datasets with multicollinearity, it has L2 regularization mechanism, helping reduce model complexity while retaining all features.
+•	XGBoost Regression is a powerful gradient boosting ensemble algorithm known for its high accuracy and efficiency. It handles complex relationships well and is robust to overfitting with proper tuning.
+•	Random Forest Regression was selected for robustness to noise. It’s also useful for feature importance analysis. 
+•	HistGradientBoosting Regression is a newer boosting ensemble method optimized for speed and scalability. It’s particularly effective with large datasets and supports missing values natively.
 
 
-**1. Linear Regression (Baseline Model)**
+Except Rick regression doesn’t require hypeparameter tunning, the 3 models underwent using GridSearchCV to optimize performance. The evaluation was based on two key metrics: Mean Squared Error (MSE) and R-squared (R²). Lower MSE indicates better prediction accuracy, while higher R² reflects stronger explanatory power.
+
+**1. Riedge Regression (Baseline Model)**
 Purpose: Establish a baseline for model performance using a simple linear approach.
 
 Method: Ordinary Least Squares Regression
 Hyperparameter Tuning: Not applicable (no tunable parameters in basic linear regression)
 Performance Metrics:
-Mean Squared Error (MSE): 1.197
-R-squared (R²): 0.005
+Mean Squared Error (MSE): 0.3559
+R-squared (R²): 0.7041
 Interpretation:
-The model explains less than 1% of the variance in ratings, indicating that linear relationships alone are insufficient for capturing the complexity of customer rating behavior.
+Indicating decent performance but limited ability to capture complex patterns.
 
 **2. XGBoost Regression**
 Purpose: Leverage gradient boosting to model complex, non-linear relationships.
@@ -102,8 +111,8 @@ Hyperparameter Tuning via GridSearchCV:
 learning_rate: 0.1
 n_estimators: 200
 Performance Metrics:
-MSE: 1.1182
-R-squared (R²): 0.0704
+MSE: 0.3273
+R-squared (R²): 0.7041
 Interpretation:
 XGBoost outperformed the baseline, capturing more variance and reducing error. The model benefits from boosting and handles feature interactions well, making it suitable for this task.
 
@@ -114,27 +123,90 @@ Hyperparameter Tuning via GridSearchCV:
 max_depth: 10
 n_estimators: 200
 Performance Metrics:
-MSE: 1.13
-R-squared (R²): 0.06
+MSE: 0.3317
+R-squared (R²): 0.7242
 Interpretation:
 Random Forest also improved upon the baseline, though slightly less effective than XGBoost. It provides robustness and interpretability, especially useful for understanding feature importance.
+
+**4. HistGradientBoosting Regression**
+Purpose: newer boosting ensemble method optimized for speed and scalabilit
+
+learning_rate: 0.1
+Max_leaf_nodes: 50
+Performance Metrics:
+MSE: 0.3289
+R-squared (R²): 0.7266
+Interpretation:
+Closely matching XGBoost’s performance.
+
+Here’s a comparison of the three models. As you can see, XGBoost delivered the best performance overall, with the lowest error and highest R-squared value. 
+
 
 
 ### Evaluation
 <img width="783" height="84" alt="models comparison table" src="https://github.com/user-attachments/assets/a5575652-28fa-4f47-bace-52a4acebdea5" />
 
-While all models show modest predictive power, XGBoost Regression demonstrated the best performance in terms of both error reduction and variance explanation. Further improvements may be achieved by:
+--- Analysis of Learning Curves ---
+Learning curves show how the model's performance changes with increasing training data size.
+- For Ridge Regression, the training and validation error converge relatively quickly, indicating that adding more data might not significantly improve performance with this model.
+- For XGBoost Regression, the training error decreases and the validation error decreases as the training set size increases. The curves are still somewhat separated, suggesting that more data could potentially improve performance.
+- For Random Forest Regression, similar to XGBoost, the training error decreases and validation error decreases with more data. There is a gap between the curves, indicating potential for improvement with more data.
+- For HistGradientBoosting Regression, the learning curves show a similar trend to XGBoost and Random Forest, with a gap between training and validation error, suggesting that more data might be beneficial.
 
-a. Incorporating additional features (e.g., review length, brand popularity)
+--- Analysis of Validation Curves ---
+Validation curves show how the model's performance changes with different hyperparameter values.
+- For Ridge Regression (alpha), the validation error is relatively stable across a wide range of alpha values, with a slight increase at very high alpha values.
+- For XGBoost Regression (n_estimators), the training error decreases and validation error decreases as the number of estimators increases. The validation error seems to plateau after a certain number of estimators, suggesting diminishing returns from adding too many estimators.
+- For Random Forest Regression (n_estimators), the training error decreases and validation error is relatively stable as the number of estimators increases. The validation error does not show significant improvement with more estimators beyond a certain point.
+- For HistGradientBoosting Regression (max_leaf_nodes), the training error decreases and validation error decreases as the number of max_leaf_nodes increases. The validation error seems to continue decreasing with increasing max_leaf_nodes within the tested range
 
-b. Using ensemble stacking
 
-c. Applying advanced NLP techniques to review text
+--- Summary of Findings ---
+Based on the learning curves, all tree-based models (XGBoost, Random Forest, HistGradientBoosting) show potential for improvement with more training data, as indicated by the gap between training and validation error. Ridge Regression's performance seems less sensitive to the amount of training data.
+The validation curves provide insights into the impact of key hyperparameters. For XGBoost and HistGradientBoosting, increasing the number of estimators or max_leaf_nodes generally improves performance up to a point. For Random Forest, the number of estimators has less impact on validation error within the tested range. For Ridge, the alpha parameter's impact on performance is minimal within the tested range.
+
+•	Overall: XGBoost and HistGradientBoosting exhibit promising characteristics in both learning and validation curves, suggesting they are better at capturing the underlying data patterns compared to Ridge and potentially Random Forest within the explored hyperparameter ranges. 
+
+XGBoost with the lowest error and highest R-squared value and exhibited promising characteristics in both learning and validation curve was selected as the final model for generating predicted ratings and identifying the bottom 20 products for review.
 
 ## Recommendation and Analysis
-Explain the analysis and recommendations
+We used the beset model and predicted ratings for all products. We then identified the bottom 20 product based on average predicted ratings. These products are flagged for review, offering insights for product improvement 
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce bibendum neque eget nunc mattis eu sollicitudin enim tincidunt. Vestibulum lacus tortor, ultricies id dignissim ac, bibendum in velit. Proin convallis mi ac felis pharetra aliquam. Curabitur dignissim accumsan rutrum. In arcu magna, aliquet vel pretium et, molestie et arcu. Mauris lobortis nulla et felis ullamcorper bibendum. Phasellus et hendrerit mauris. Proin eget nibh a massa vestibulum pretium. Suspendisse eu nisl a ante aliquet bibendum quis a nunc. Praesent varius interdum vehicula. Aenean risus libero, placerat at vestibulum eget, ultricies eu enim. Praesent nulla tortor, malesuada adipiscing adipiscing sollicitudin, adipiscing eget est.
+
+
+
+
+Let’s see how different customer demographics interact with the bottom 20 products, we segmented by skin type, skin tone, eye color, and hair color. 
+Starting with skin type, the distribution of predicted ratings across categories such as oily, dry, combination, and normal. oily skin shows a lower median and a narrow spread, this suggests that customers with oily skin consistently rate these products poorly. This could indicate a mismatch between product formulation and the needs of this skin type. 
+
+Next, we looked at skin tone groups—Dark, Light, Medium, and Tan. 
+Medium & Light skin tones has Wider spread, with some outliers as high as ~4.5.
+this Suggests these Medium & Light have more polarized experiences, some users really dislike the products, but a minority rate them much higher. 
+
+Tan & Dark skin tones' Ratings are consistently low (~1.5–1.7). This shows uniform dissatisfaction, with little variation. Likely these products don’t cater well to deeper tones. one of the bottom product is Play, Mineral spf Stick should be look into to help to serve better for underserved skin tone group.
+
+Although eye color and hair color may not directly influence product performance, their box plots can still reveal interesting trends. 
+•	Brown and Hazel eye colors appear to have lower median predicted ratings for the bottom 20 products.
+•	Black hair: Consistently low (~1.5–1.7), little variation. Products underperform here.
+
+
+Let’s look at other product feature like Price and ingredients 
+Several products priced above $250–$300 show predicted ratings below 2.0, indicating poor perceived value.
+This is especially noticeable in categories like Wellness and High Tech Tools.
+Products in the Treatments category tend to have higher predicted ratings even at lower price points, suggesting strong value perception and customer satisfaction.
+Wellness, High Tech Tools, and Value & Gift Sets show clusters of low ratings, regardless of price.
+Masks and Moisturizers show mixed performance, indicating variability in formulation or customer fit. 
+
+I also completed an ingredient-level analysis of the bottom 20 products. the focus was on identifying commonly used ingredients that may be contributing to poor ratings among sensitive demographics.
+
+
+Recommendations:
+Since Sephora is a distributor and not a manufacturer, the recommendations should focus on influencing brand partners and curating product assortments 
+•	Sephora to share the Bottom 20 products insights with brand partners, work with them:
+•	Ingredient Optimization: Reduce or replace ingredients like phenoxyethanol or harsh exfoliants in products targeted at sensitive demographics. Like recommended by dermatologists' product La Roche-Posay
+•	Targeted Testing: Conduct user trials with affected groups to validate reformulations and ensure improved performance. As well wellness and high-tech products makers (toning tool), to provide demo or testing especial in roadshows 
+•	R&D Reformulation : encourage partner to works with dermatologists with reassess active ingredients for efficacy and compatibility with target demographics, re-introduce skin-type-specific variants example: New foundation shades, addressing underserved skin tones.
+
 
 ## AI Ethics
 1. Privacy

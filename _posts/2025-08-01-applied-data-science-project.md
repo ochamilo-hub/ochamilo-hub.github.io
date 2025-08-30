@@ -62,6 +62,9 @@ A comprehensive data cleaning and preparation process was conducted to ensure th
 2. Data Cleaning Highlights
 Using Pandas and NumPy, the following steps were performed:
 
+<img width="519" height="238" alt="image" src="https://github.com/user-attachments/assets/a18b01e9-0bcc-487e-8532-ced801e0a394" />
+
+
     -Data Import & Consolidation: Multiple review files and product information datasets were imported and concatenated. An irrelevant column containing only line numbers was dropped.
   
     -Structural Fixes: Column names and formats were standardized for consistency.
@@ -72,6 +75,8 @@ Using Pandas and NumPy, the following steps were performed:
 Temporal Filtering: Only reviews from 2021 and 2022 were retained to ensure consistency and relevance. Data from 2023 was excluded due to incomplete annual coverage.
 Duplicate Removal: 523 duplicate rows were identified and removed based on a combination of author ID, timestamp, review text, and product ID. This accounted for less than 0.1% of the dataset.
 
+<img width="905" height="154" alt="image" src="https://github.com/user-attachments/assets/f7ba294f-2170-43de-b396-1e401152d910" />
+
 4. Handling Missing Values
 Demographic Fields: Missing values (<5%) were imputed using the most frequent values from the full 16-year dataset.
 Helpfulness Score: With ~50% missing values, this field was imputed using the mean.
@@ -80,16 +85,29 @@ Review Title: Not essential for rating prediction.
 Tertiary Category: Replaced by Secondary Category or Product Name.
 Size, value_price_usd, sale_price_usd, child_min_price, child_max_price, variation_value, and variation_type: Dropped due to redundancy or irrelevance.
 
+<img width="531" height="140" alt="image" src="https://github.com/user-attachments/assets/495317e6-9aa2-4c2b-b540-583c72a4935d" />
+
 5. Standardization & Grouping
 Categorical Standardization: Fields like Eye Color were cleaned by merging semantically identical values (e.g., "Gray" and "grey").
 Skin Tone Grouping: Consolidated into four categories — Light, Medium, Tan, and Dark — to reduce sparsity and improve model performance.
 
+<img width="458" height="137" alt="image" src="https://github.com/user-attachments/assets/63f069a6-1ad0-4950-8f5d-27cf0f14671d" />
+
+<img width="503" height="129" alt="image" src="https://github.com/user-attachments/assets/a5c59b7b-a0b4-4bab-a764-d4b97dde23ae" />
+
 6. Sentiment Score Integration
 A sentiment score was derived from the review text to quantify emotional tone. This feature helps the model interpret customer feedback beyond structured fields, with positive sentiment often correlating with higher ratings.
+
+<img width="610" height="110" alt="image" src="https://github.com/user-attachments/assets/93b3daa6-9aab-483b-a7c1-961c6ef992d9" />
+
 
 7. Outlier Treatment
 Price (USD): Outliers (e.g., $1900) were addressed using log transformation to reduce skew while preserving distribution shape.
 Feedback Counts: Extreme values were managed using capping techniques to maintain model stability.
+
+<img width="550" height="281" alt="image" src="https://github.com/user-attachments/assets/fb1e4e3e-552d-4234-9470-4b1c4ad7f58b" />
+<img width="511" height="331" alt="image" src="https://github.com/user-attachments/assets/4b6a1758-4a2d-4797-9439-b1485039acf0" />
+
 
 8. Correlation Analysis
 A correlation matrix was generated post-cleaning:
@@ -97,7 +115,10 @@ is_recommended showed the strongest correlation with rating.
 love_count and price_usd had weak correlations.
 Redundant feedback count columns were identified for removal to avoid multicollinearity.
 
-9. Encoding & Feature Selection
+<img width="566" height="272" alt="image" src="https://github.com/user-attachments/assets/f7e8414c-1936-4267-9df8-0ce49b65f78b" />
+
+
+10. Encoding & Feature Selection
 After cleaning and transformation, 11 relevant columns were selected from an initial 27. These features capture both customer demographics and product attributes, forming the foundation for the rating prediction model.
 
 Product Features: rating, loves_count, price_usd, and sentiment_score,
@@ -220,7 +241,7 @@ We used the beset model and predicted ratings for all products. We then identifi
 
 <img width="587" height="296" alt="image" src="https://github.com/user-attachments/assets/c13eb3ee-e55e-41d7-b0e0-a0197bd687d4" />
 
-Using the best XGBoost model, we analyzed feature importance. The variable 'is_recommended' was as the most influential predictor of customer ratings. This aligns with our earlier correlation analysis. The other variables were very weak in corelation  
+Using the best-performing XGBoost model, feature importance analysis identified 'is_recommended' as the most influential predictor of customer ratings. This finding is consistent with our earlier correlation analysis during preprocessing stage, where recommendation likelihood was strongly aligned with rating behavior. Customers who would recommend a product generally provided higher ratings. In contrast, variables such as demographics and price displayed weak correlations, indicating limited predictive power.
 
 ## Recomendation and Analysis
 

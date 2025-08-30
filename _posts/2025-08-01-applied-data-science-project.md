@@ -8,21 +8,21 @@ categories: ITD214
 
 <img width="1200" height="544" alt="image" src="https://github.com/user-attachments/assets/a0de52c3-3829-4302-b320-7ecf552e8650" />
 
-Company Overview
+## Company Overview
 
 Sephora is a global leader in the beauty retail industry, offering thousands of products across cosmetics, skincare, hair care, and fragrances. Since launching its online store in 1999, Sephora has catered to a diverse customer base with varying preferences shaped by individual characteristics such as skin tone, skin type, hair color, and eye color.
 
-Project Motivation
+## Project Motivation
 
 Imagine scrolling through hundreds of products on Sephora’s website—each promising different benefits and priced across a wide spectrum. For beauty and skincare shoppers, personalized insights are invaluable. Questions like “Which product suits my skin type?” or “Is this worth the price?” often arise. In such moments, user ratings and reviews become critical tools for informed decision-making.
 
 However, Sephora’s rating system is simplified to a 5-star scale, which doesn’t reveal the underlying factors that influence customer satisfaction. This sparked a curiosity: What drives a user to rate a product highly or poorly? Beyond performance, could brand, exclusivity, or popularity play a role?
 
-Main Business Goal
+## Main Business Goal
 
 The overarching goal of this project is to enhance customer satisfaction, uncover customer preferences, and inform product development decisions by leveraging data-driven insights.
 
-Business Objective
+## Business Objective
 
 To achieve this, the project aims to Predict customer ratings based on product features and customer demographics (skin tone, eye color, skin type, hair color).
 Identify the bottom 20 products with predicted poor ratings for further review or improvement.
@@ -32,11 +32,7 @@ The dataset used for this analysis is titled “Sephora Products and Skincare Re
 
 ## Work Accomplished
 
-By understanding the factors that influence product ratings, Sephora can work with their brand partner to:
-
-Offer more personalized product recommendations.
-Improve product development and marketing strategies.
-Proactively address low-performing products to enhance overall customer experience.
+By understanding the factors that influence product ratings, Sephora can work with their brand partner to proactively address low-performing products to enhance overall customer experience.
 
 ### Data Preparation
 
@@ -101,78 +97,52 @@ The dataset was then split into training and testing sets in an 80/20 ratio.
 
 **1. Riedge Regression (Baseline Model)**
 
-Purpose: A baseline linear model. It’s simple, interpretable, and effective for datasets with multicollinearity, it has L2 regularization mechanism, helping reduce model complexity while retaining all features.
+•	Purpose: A baseline linear model. It’s simple, interpretable, and effective for datasets with multicollinearity, it has L2 regularization mechanism, helping reduce model complexity while retaining all features.
+•	Method: Ordinary Least Squares Regression
+•	Hyperparameter Tuning: Not applicable (no tunable parameters in basic linear regression)
+•	Performance Metrics:
+•	Mean Squared Error (MSE): 0.3559
+•	R-squared (R²): 0.7041
 
-Method: Ordinary Least Squares Regression
-
-Hyperparameter Tuning: Not applicable (no tunable parameters in basic linear regression)
-
-Performance Metrics:
-
-Mean Squared Error (MSE): 0.3559
-
-R-squared (R²): 0.7041
-
-Interpretation:
-
+•	Interpretation:
 Indicating decent performance but limited ability to capture complex patterns.
 
 **2. XGBoost Regression**
 
-Purpose: XGBoost Regression is a powerful gradient boosting ensemble algorithm known for its high accuracy and efficiency. It handles complex relationships well and is robust to overfitting with proper tuning, leverage gradient boosting to model complex, non-linear relationships, 
+•	Purpose: XGBoost Regression is a powerful gradient boosting ensemble algorithm known for its high accuracy and efficiency. It handles complex relationships well and is robust to overfitting with proper tuning, leverage gradient boosting to model complex, non-linear relationships, 
+•	Hyperparameter Tuning via GridSearchCV:
+•	learning_rate: 0.1
+•	n_estimators: 200
+•	Performance Metrics:
+•	MSE: 0.3273
+•	R-squared (R²): 0.7041
 
-Hyperparameter Tuning via GridSearchCV:
-
-learning_rate: 0.1
-
-n_estimators: 200
-
-Performance Metrics:
-
-MSE: 0.3273
-
-R-squared (R²): 0.7041
-
-Interpretation:
-
+•	Interpretation:
 XGBoost outperformed the baseline, capturing more variance and reducing error. The model benefits from boosting and handles feature interactions well, making it suitable for this task.
 
 **3. Random Forest Regression**
 
-Purpose: it can capture complex customer-product interactions, is robust against noisy review data, works seamlessly with mixed feature types, and provides interpretable insights that are valuable for product strategy.
+•	Purpose: it can capture complex customer-product interactions, is robust against noisy review data, works seamlessly with mixed feature types, and provides interpretable insights •	that are valuable for product strategy.
+•	Hyperparameter Tuning via GridSearchCV:
+•	max_depth: 10
+•	n_estimators: 200
+•	Performance Metrics:
+•	MSE: 0.3317
+•	R-squared (R²): 0.7242
 
-Hyperparameter Tuning via GridSearchCV:
-
-max_depth: 10
-
-n_estimators: 200
-
-Performance Metrics:
-
-MSE: 0.3317
-
-R-squared (R²): 0.7242
-
-Interpretation:
-
+•	Interpretation:
 Random Forest also improved upon the baseline, though slightly less effective than XGBoost. It provides robustness and interpretability, especially useful for understanding feature importance.
 
 **4. HistGradientBoosting Regression**
 
-Purpose: Newer boosting ensemble method optimized for speed and scalability. It’s particularly effective with large datasets and supports missing values natively.
-
+•	Purpose: Newer boosting ensemble method optimized for speed and scalability. It’s particularly effective with large datasets and supports missing values natively.
 learning_rate: 0.1
+•	Max_leaf_nodes: 50
+•	Performance Metrics:
+•	MSE: 0.3289
+•	R-squared (R²): 0.7266
 
-Max_leaf_nodes: 50
-
-Performance Metrics:
-
-MSE: 0.3289
-
-R-squared (R²): 0.7266
-
-Interpretation:
-
+•	Interpretation:
 Closely matching XGBoost’s performance.
 
 Here’s a comparison of the four models. As you can see, XGBoost delivered the best performance overall, with the lowest error and highest R-squared value. 
@@ -184,31 +154,31 @@ Here’s a comparison of the four models. As you can see, XGBoost delivered the 
 
 <img width="613" height="339" alt="image" src="https://github.com/user-attachments/assets/02e982db-b891-4679-8d78-a83f6bf8aa54" />
 
---- Analysis of Learning Curves ---
+### Analysis of Learning Curves
 
 Learning curves show how the model's performance changes with increasing training data size.
 
-- For Ridge Regression, the training and validation error converge relatively quickly, indicating that adding more data might not significantly improve performance with this model.
+•	For Ridge Regression, the training and validation error converge relatively quickly, indicating that adding more data might not significantly improve performance with this model.
 
-- For XGBoost Regression, the training error decreases and the validation error decreases as the training set size increases. The curves are still somewhat separated, suggesting that more data could potentially improve performance.
+•	For XGBoost Regression, the training error decreases and the validation error decreases as the training set size increases. The curves are still somewhat separated, suggesting that more data could potentially improve performance.
 
-- For Random Forest Regression, similar to XGBoost, the training error decreases and validation error decreases with more data. There is a gap between the curves, indicating potential for improvement with more data.
+•	For Random Forest Regression, similar to XGBoost, the training error decreases and validation error decreases with more data. There is a gap between the curves, indicating potential for improvement with more data.
 
-- For HistGradientBoosting Regression, the learning curves show a similar trend to XGBoost and Random Forest, with a gap between training and validation error, suggesting that more data might be beneficial.
+•	For HistGradientBoosting Regression, the learning curves show a similar trend to XGBoost and Random Forest, with a gap between training and validation error, suggesting that more data might be beneficial.
 
 <img width="625" height="349" alt="image" src="https://github.com/user-attachments/assets/8c869ff1-68e4-4e19-b126-f765da61a0d9" />
 
---- Analysis of Validation Curves ---
+### Analysis of Validation Curves
 
 Validation curves show how the model's performance changes with different hyperparameter values.
 
-- For Ridge Regression (alpha), the validation error is relatively stable across a wide range of alpha values, with a slight increase at very high alpha values.
+•	For Ridge Regression (alpha), the validation error is relatively stable across a wide range of alpha values, with a slight increase at very high alpha values.
 
-- For XGBoost Regression (n_estimators), the training error decreases and validation error decreases as the number of estimators increases. The validation error seems to plateau after a certain number of estimators, suggesting diminishing returns from adding too many estimators.
+•	For XGBoost Regression (n_estimators), the training error decreases and validation error decreases as the number of estimators increases. The validation error seems to plateau after a certain number of estimators, suggesting diminishing returns from adding too many estimators.
 
-- For Random Forest Regression (n_estimators), the training error decreases and validation error is relatively stable as the number of estimators increases. The validation error does not show significant improvement with more estimators beyond a certain point.
+•	For Random Forest Regression (n_estimators), the training error decreases and validation error is relatively stable as the number of estimators increases. The validation error does not show significant improvement with more estimators beyond a certain point.
 
-- For HistGradientBoosting Regression (max_leaf_nodes), the training error decreases and validation error decreases as the number of max_leaf_nodes increases. The validation error seems to continue decreasing with increasing max_leaf_nodes within the tested range
+•	For HistGradientBoosting Regression (max_leaf_nodes), the training error decreases and validation error decreases as the number of max_leaf_nodes increases. The validation error seems to continue decreasing with increasing max_leaf_nodes within the tested range
 
 --- Summary of Findings ---
 
@@ -265,13 +235,13 @@ I also completed an ingredient-level analysis of the bottom 20 products. the foc
 ## Recommendations:
 Since Sephora is a distributor and not a manufacturer, the recommendations should focus on influencing brand partners and curating product assortments 
 
-•	Sephora to share the Bottom 20 products insights with brand partners, work with them:
+Sephora to share the Bottom 20 products insights with brand partners, work with them:
 
-•	Ingredient Optimization: Reduce or replace ingredients like phenoxyethanol or harsh exfoliants in products targeted at sensitive demographics. Like recommended by dermatologists' product La Roche-Posay
+1. Ingredient Optimization: Reduce or replace ingredients like phenoxyethanol or harsh exfoliants in products targeted at sensitive demographics. Like recommended by dermatologists' product La Roche-Posay
 
-•	Targeted Testing: Conduct user trials with affected groups to validate reformulations and ensure improved performance. As well wellness and high-tech products makers (toning tool), to provide demo or testing especial in roadshows 
+2. Targeted Testing: Conduct user trials with affected groups to validate reformulations and ensure improved performance. As well wellness and high-tech products makers (toning tool), to provide demo or testing especial in roadshows 
 
-•	R&D Reformulation : encourage partner to works with dermatologists with reassess active ingredients for efficacy and compatibility with target demographics, re-introduce skin-type-specific variants example: New foundation shades, addressing underserved skin tones.
+3. R&D Reformulation : encourage partner to works with dermatologists with reassess active ingredients for efficacy and compatibility with target demographics, re-introduce skin-type-specific variants example: New foundation shades, addressing underserved skin tones.
 
 
 ## AI Ethics
